@@ -171,12 +171,11 @@
           </section>
           <section id='Deployment_2'>
             <pre>
-              <code class='hljs' style="max-height: 80%;font-size: 60%; line-height: 1.2em;">#yaml
+              <code class='hljs' style="top: -50px;position: relative; max-height: 80%;font-size: 60%; line-height: 1.2em;">#yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: front-prod
-  namespace: "${NAMESPACE}"
   labels:
     app: "front-${APP_ENV}"
 spec:
@@ -187,7 +186,6 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1
       maxUnavailable: 25%
   template:
     metadata:
@@ -197,7 +195,7 @@ spec:
       imagePullSecrets:
         - name: regcred
       containers:
-      - image: "bpp/front:${BUILD_NUMBER}"
+      - image: "node/front:${BUILD_NUMBER}"
         imagePullPolicy: Always
         name: "front-${APP_ENV}"
         env:
